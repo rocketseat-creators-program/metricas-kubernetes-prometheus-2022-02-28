@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-templates
+data:
+  notifications.tmpl: |-
+    {{ define "__single_message_title" }}{{ range .Alerts.Firing }}{{ .Labels.alertname }} @ {{ .Annotations.summary }}{{ end }}{{ range .Alerts.Resolved }}{{ .Labels.alertname }} @ {{ .Annotations.summary }}{{ end }}{{ end }}
+    {{ define "titulo_teste" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}{{ template "__single_message_title" . }}{{ end }}{{ end }}
+    {{ define "mensagem_teste" }}
+    {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}
+    {{ range .Alerts.Firing }}{{ .Annotations.description }}{{ end }}{{ range .Alerts.Resolved }}{{ .Annotations.description }}{{ end }}
+    {{ else }}
+    {{ if gt (len .Alerts.Firing) 0 }}
+    *Alerts Firing:*
+    {{ range .Alerts.Firing }}- {{ .Annotations.summary }}: {{ .Annotations.description }}
+    {{ end }}{{ end }}
+    {{ if gt (len .Alerts.Resolved) 0 }}
+    *Alerts Resolved:*
+    {{ range .Alerts.Resolved }}- {{ .Annotations.summary }}: {{ .Annotations.description }}
+    {{ end }}{{ end }}
+    {{ end }}
+    {{ end }}
+    
