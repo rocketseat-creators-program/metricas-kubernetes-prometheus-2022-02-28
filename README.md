@@ -44,7 +44,7 @@ Para quem vai usar em cluster físico local e queira editar o arquivo "hosts" pa
 - no Windows, o arquivo hosts fica em: C:\Windows\System32\drivers\etc\
 - no Linux (Ubuntu) o o arquivo hosts fica em: /etc/
 - o arquivo hosts deve ser editado e acrescente no final do arquivo as linhas com as informações do seu ambiente, como exemplo:
-  # inserir no final do arquivo a linha:
+  ### inserir no final do arquivo a linha:
   192.168.15.240	www.demo.io  grafana.demo.io  prom.demo.io  alert.demo.io
 
 Lembrando que o IP (no exemplo: 192.168.15.240 é o IP que você configurou no metallb-configmap-single.yaml e ***.demo.io é a URL que você quiser usar
