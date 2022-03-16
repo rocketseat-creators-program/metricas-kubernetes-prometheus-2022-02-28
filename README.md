@@ -40,6 +40,15 @@ A implementação da aula foi feita em um cluster Kubernetes configurado em máq
     - kube-state-rbac.yaml
     - kube-state-deploy.yaml - https://github.com/kubernetes/kube-state-metrics
 
+Para quem vai usar em cluster físico local e queira editar o arquivo "hosts" para configurar uma URL de acesso ao ambiente:
+- no Windows, o arquivo hosts fica em: C:\Windows\System32\drivers\etc\
+- no Linux (Ubuntu) o o arquivo hosts fica em: /etc/
+- o arquivo hosts deve ser editado e acrescente no final do arquivo as linhas com as informações do seu ambiente, como exemplo:
+  # inserir no final do arquivo a linha:
+  192.168.15.240	www.demo.io  grafana.demo.io  prom.demo.io  alert.demo.io
+
+Lembrando que o IP (no exemplo: 192.168.15.240 é o IP que você configurou no metallb-configmap-single.yaml e ***.demo.io é a URL que você quiser usar
+
 
 ## Sergio Siqueira
 
