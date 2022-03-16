@@ -1,0 +1,15 @@
+FROM ubuntu:20.04
+WORKDIR /usr/app
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y -qq \
+      python3 python3-pip python3-dev nano
+RUN pip3 install -U pip
+RUN pip3 install speedtest-cli prometheus-client nano
+COPY speed-test.py .
+ENV SPEED_DEBUG=""
+ENV SPEED_PORT="9095"
+ENV PYTHONUNBUFFERED=1
+ENTRYPOINT ["python3", "speed-test.py"]

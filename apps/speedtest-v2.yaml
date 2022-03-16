@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest
+  namespace: app
+  labels:
+    app: speedtest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest
+  template:
+    metadata:
+      labels:
+        app: speedtest
+    spec:
+      containers:
+      - image: snsergio/monitor:st-v3
+        #command: [ "/bin/bash", "-c", "--" ]
+        #args: [ "while true; do sleep 30; done;" ]
+        imagePullPolicy: IfNotPresent
+        name: monitor
+        ports:
+        - containerPort: 9095
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 300m
+            memory: 500Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        env:
+        - name: SPEED_DEBUG
+          value: "1"
+        - name: SPEED_PORT
+          value: "9095"
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: speed-service
+  namespace: app
+spec:
+  ports:
+  - port: 8085
+    targetPort: 9095
+  selector:
+    app: speedtest
+ 
