@@ -32,6 +32,8 @@ A implementação da aula foi feita em um cluster Kubernetes configurado em máq
     - grafana-datasource.yaml
     - grafana-deploy.yaml
 
+Acesso inicial ao Grafana utilize usuário admin e senha admin
+
   - Dashboards para o Grafana: https://grafana.com/grafana/dashboards/
     - grafana.json
 
@@ -47,9 +49,23 @@ Para quem vai usar em cluster físico local e queira editar o arquivo "hosts" pa
   ### inserir no final do arquivo a linha:
   192.168.15.240	www.demo.io  grafana.demo.io  prom.demo.io  alert.demo.io
 
-Lembrando que o IP (no exemplo: 192.168.15.240 é o IP que você configurou no metallb-configmap-single.yaml e ***.demo.io é a URL que você quiser usar
+Lembrando que o IP (no exemplo: 192.168.15.240 é o IP que você configurou no metallb-configmap-single.yaml e ***.demo.io é a URL que você quiser usar.
 
+Aplicativos bonus: página web e speed test - teste de velocidade da internet
+  - nginx.yaml
+  - backend.yaml
+  - index.html (html da página inicial)
+  - backend.html (html da página de backend)
+  - web-ingress.yaml (configuração do ingress para a página web)
 
+Para copiar arquivvos para o POD, use o comando abaixo:
+kubectl -n <namespace> cp <origem> <pod destino>:<diretorio destino>
+
+Bonus: Speed test - teste de velocidade da Internet
+  - speed-test.py
+  - Dockerfile.speed
+  - speedtest-v2.yaml
+  
 ## Sergio Siqueira
 
 | [<img src="https://avatars.githubusercontent.com/u/5666390?v=4" width="75px;"/>](https://github.com/snsergio) |
